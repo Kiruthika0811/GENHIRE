@@ -87,11 +87,10 @@ Database (optional): SQLite
  Email notifications for shortlisted candidates
 
 Credits
-Developed by Jenilia Gracelyn
-B.E. CSE - AIML | SRM Easwari Engineering College
-
 Developed by Kiruthika.B
 B.Tech IT | SRM Easwari Engineering College
+Developed by Jenilia Gracelyn
+B.E. CSE - AIML | SRM Easwari Engineering College
 
  License
 This project is licensed under the MIT License. Feel free to use and extend it!
