@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload Resume</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('https://images.unsplash.com/photo-1581093588401-16c2b70f1f48?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .upload-box {
+      margin-top: 100px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container d-flex justify-content-center">
+    <div class="upload-box col-md-6 text-center">
+      <h2>Upload Your Resume / CV</h2>
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="resume" class="form-control mb-3" accept=".txt" required>
+        <button class="btn btn-danger btn-lg">Upload & Evaluate</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

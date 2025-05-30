@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GenHire</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('background.jpg'); 
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: white;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background-color: rgba(15, 17, 35, 0.8); 
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #f1c40f;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 30px;
+      font-size: 16px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+      background-color: rgba(15, 17, 35, 0.7); 
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      color: #cccccc;
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+    }
+
+    .hero button {
+      background-color: #f1c40f;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .hero button:hover {
+      background-color: #e0b000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">GENHIRE</div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Get Hired</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>AI-Powered Recruitment Simplified</h1>
+    <p>
+      Smart JD summarization, intelligent resume evaluation, and fair shortlisting 
+      using Gen AI with simulation-based assessments.
+    </p>
+    <button onclick="location.href='page1.html'">Get Started</button>
+  </section>
+</body>
+</html>

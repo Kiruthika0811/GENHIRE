@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Candidate Evaluation Summary</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: aliceblue;
+      background-size: cover;
+      color: #fff;
+    }
+
+    .container {
+      backdrop-filter: blur(6px);
+      background: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      min-height: 100vh;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 30px;
+      color: #00ffe5;
+    }
+
+    .score-board {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      height: 200px;
+      border-radius: 15px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.55);
+      z-index: 0;
+    }
+
+    .card-content {
+      z-index: 1;
+      text-align: center;
+    }
+
+    .card h2 {
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #f0f0f0;
+    }
+
+    .score {
+      font-size: 30px;
+      font-weight: bold;
+      color: #00ffae;
+    }
+
+    .final-result {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .final-result h2 {
+      font-size: 24px;
+      color: #fff;
+    }
+
+    .status {
+      font-size: 30px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #00ff7f;
+    }
+
+    .not-selected {
+      color: #ff5c5c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">Candidate Evaluation Summary</div>
+
+    <div class="score-board">
+      <div class="card" style="background-image: url('https://images.unsplash.com/photo-1603574670812-d24560880210');">
+        <div class="card-content">
+          <h2>Resume / CV Score</h2>
+          <div class="score">78%</div>
+        </div>
+      </div>
+
+      <div class="card" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c');">
+        <div class="card-content">
+          <h2>JD Summarization Score</h2>
+          <div class="score">85%</div>
+        </div>
+      </div>
+
+      <div class="card" style="background-image: url('https://images.unsplash.com/photo-1581090700227-1e8a6746a8b4');">
+        <div class="card-content">
+          <h2>Skill Set Score</h2>
+          <div class="score">92%</div>
+        </div>
+      </div>
+
+      <div class="card" style="background-image: url('https://images.unsplash.com/photo-1607746882042-944635dfe10e');">
+        <div class="card-content">
+          <h2>Simulation Test Score</h2>
+          <div class="score">88%</div>
+        </div>
+      </div>
+
+      <div class="card" style="background-image: url('https://images.unsplash.com/photo-1581092339600-9c75e4a2efaa');">
+        <div class="card-content">
+          <h2>Consolidated Percentage</h2>
+          <div class="score">85.75%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="final-result">
+      <h2>Final Result</h2>
+      <div class="status">Selected</div>
+      <!-- <div class="status not-selected">Not Selected</div> -->
+    </div>
+  </div>
+</body>
+</html>

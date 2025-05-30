@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Candidate Onboarding</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #000;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: red;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1px;
+    }
+
+    .card-banner {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      height: 300px;
+      margin-bottom: 30px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+
+    .card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card-overlay h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .card-overlay p {
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    .btn-custom {
+      margin-top: 15px;
+      padding: 10px 25px;
+      background-color: red;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 25px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      background-color: darkred;
+    }
+
+    .user-info {
+      background: #111;
+      border: 2px solid red;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+
+    .user-info h3 {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 class="section-title">Candidate Onboarding</h2>
+
+    <!-- Dynamic user info will be injected here -->
+    <div id="userData" class="user-info"></div>
+
+    <div class="row">
+
+      <!-- Upload CV -->
+      <div class="col-md-6">
+        <div class="card-banner" style="background-image: url('https://cdn.pixabay.com/photo/2015/01/08/18/26/man-593333_960_720.jpg');">
+          <div class="card-overlay">
+            <h3>Upload Resume / CV</h3>
+            <p>Let our AI parse your CV and score it to help you stand out.</p>
+            <a href="/upload" class="btn btn-custom">Upload Now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enter Skills -->
+      <div class="col-md-6">
+        <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1470&q=80');">
+          <div class="card-overlay">
+            <h3>Enter Your Skills</h3>
+            <p>List the skills that define your strengths and passion.</p>
+            <a href="/skills" class="btn btn-custom">Enter Skills</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Choose Job Field -->
+      <div class="col-md-6">
+        <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1521790945508-bf2a36314e85?auto=format&fit=crop&w=1470&q=80');">
+          <div class="card-overlay">
+            <h3>Choose Job Field</h3>
+            <p>Select your preferred field so we can tailor recommendations for you.</p>
+            <a href="/job-field" class="btn btn-custom">Choose Field</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulation Test -->
+      <div class="col-md-6">
+        <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=1470&q=80');">
+          <div class="card-overlay">
+            <h3>Simulation Test</h3>
+            <p>Attempt scenario-based questions to test your job readiness.</p>
+            <a href="/simulation" class="btn btn-custom">Take Test</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const email = params.get("email");
+    const phone = params.get("phone");
+    const domain = params.get("domain");
+    const experience = params.get("experience");
+
+    const userDataDiv = document.getElementById("userData");
+    if (name && email && phone && domain) {
+      userDataDiv.innerHTML = `
+        <h3>Welcome, ${name}!</h3>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Preferred Domain:</strong> ${domain}</p>
+        <p><strong>Experience:</strong> ${experience ? experience : "Not specified"}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>

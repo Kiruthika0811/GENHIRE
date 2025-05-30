@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Candidate Onboarding</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-color: #000;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.8rem;
+      margin: 40px 0 20px;
+      color: red;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: 1px;
+    }
+
+    .card-banner {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      height: auto;
+      min-height: 350px;
+      margin-bottom: 30px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.7);
+    }
+
+    .card-overlay {
+      position: relative;
+      background: rgba(0,0,0,0.6);
+      height: 100%;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .card-overlay h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .card-overlay p {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+
+    .btn-custom {
+      margin-top: 15px;
+      padding: 10px 25px;
+      background-color: red;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 25px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-custom:hover {
+      background-color: darkred;
+    }
+
+    .user-info {
+      background: #111;
+      border: 2px solid red;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 10px;
+    }
+
+    .user-info h3 {
+      color: red;
+    }
+
+    .form-group {
+      margin-top: 10px;
+    }
+
+    .form-control {
+      border-radius: 10px;
+    }
+
+    #scoreResult {
+      margin-top: 10px;
+      color: lime;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2 class="section-title">Candidate Onboarding</h2>
+
+    <div id="userData" class="user-info"></div>
+
+    <!-- Upload Resume -->
+    <div class="card-banner" style="background-image: url('https://cdn.pixabay.com/photo/2015/01/08/18/26/man-593333_960_720.jpg');">
+      <div class="card-overlay">
+        <h3>Upload Resume / CV</h3>
+        <p>Let our AI parse your CV and score it to help you stand out.</p>
+        <input class="form-control" type="file" id="cvInput" accept=".pdf,.docx" required>
+      </div>
+    </div>
+    
+
+    <!-- Enter Skills -->
+    <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&w=1470&q=80');">
+      <div class="card-overlay">
+        <h3>Enter Your Skills</h3>
+        <p>List the skills that define your strengths and passion.</p>
+        <input class="form-control" type="text" id="skillsInput" placeholder="e.g., Python, SQL, Cloud" required>
+      </div>
+    </div>
+
+    <!-- Job Field -->
+    <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1521790945508-bf2a36314e85?auto=format&fit=crop&w=1470&q=80');">
+      <div class="card-overlay">
+        <h3>Choose Job Field</h3>
+        <p>Select your preferred field so we can tailor recommendations for you.</p>
+        <select class="form-control" id="jobField" required>
+          <option value="">-- Select --</option>
+          <option value="Data Engineering">Data Engineering</option>
+          <option value="Frontend Development">Frontend Development</option>
+          <option value="AI/ML">AI/ML</option>
+          <option value="DevOps">DevOps</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Simulation Test -->
+    <div class="card-banner" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1470&q=80');">
+      <div class="card-overlay">
+        <h3>Simulation Test</h3>
+        <p>Attempt scenario-based questions to test your job readiness.</p>
+        <button class="btn btn-custom" onclick="alert('Simulation test will be available soon!')">Take Test</button>
+      </div>
+    </div>
+    <!-- Analyze Button -->
+    <div class="text-center">
+      <button type="button" class="btn btn-custom" onclick="analyzeResume()">Analyze</button>
+      <div id="scoreResult"></div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get("name");
+    const email = params.get("email");
+    const phone = params.get("phone");
+    const domain = params.get("domain");
+    const experience = params.get("experience");
+
+    const userDataDiv = document.getElementById("userData");
+    if (name && email && phone && domain) {
+      userDataDiv.innerHTML = `
+        <h3>Welcome, ${name}!</h3>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Preferred Domain:</strong> ${domain}</p>
+        <p><strong>Experience:</strong> ${experience ? experience : "Not specified"}</p>
+      `;
+    }
+
+    function analyzeResume() {
+  const skillsInput = document.getElementById("skillsInput").value.toLowerCase().split(',').map(skill => skill.trim());
+  const jobField = document.getElementById("jobField").value.toLowerCase();
+  const resumeUploaded = document.getElementById("cvInput").files.length > 0;
+
+  let score = 0;
+  const fieldKeywords = {
+    "data engineering": ["sql", "python", "etl", "bigquery", "spark"],
+    "frontend development": ["html", "css", "javascript", "react", "vue"],
+    "ai/ml": ["machine learning", "tensorflow", "pytorch", "ai", "nlp"],
+    "devops": ["docker", "kubernetes", "aws", "ci/cd", "linux"]
+  };
+
+  fieldKeywords[jobField]?.forEach(keyword => {
+    if (skillsInput.includes(keyword)) score += 20;
+  });
+
+  if (resumeUploaded) score += 10; // Optional: bonus for uploading resume
+
+  // Store data in localStorage
+  const resultData = {
+    name, email, phone, domain, experience,
+    skills: skillsInput.join(', '),
+    jobField,
+    score
+  };
+  localStorage.setItem("evaluationResult", JSON.stringify(resultData));
+
+  // Redirect to result page
+  window.location.href = "result.html";
+}
+
+  </script>
+
+</body>
+</html>

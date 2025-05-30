@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Evaluation Result</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #00ffae;
+    }
+
+    .result-container {
+      margin-top: 30px;
+    }
+
+    .consolidated {
+      margin: 40px auto 20px auto;
+      width: 220px;
+      position: relative;
+    }
+
+    .gauge {
+      width: 100%;
+      height: auto;
+    }
+
+    .bg-arc {
+      fill: none;
+      stroke: #333;
+      stroke-width: 6;
+    }
+
+    .fg-arc {
+      fill: none;
+      stroke: #00ffae;
+      stroke-width: 6;
+      stroke-linecap: round;
+    }
+
+    #knob {
+      transition: all 0.3s ease;
+    }
+
+    .gauge-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -10%);
+      text-align: center;
+    }
+
+    .gauge-score {
+      font-size: 32px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .gauge-text {
+      font-size: 16px;
+      color: #ccc;
+      margin-top: 4px;
+    }
+
+    .scores {
+      margin-top: 30px;
+      font-size: 18px;
+      text-align: center;
+    }
+
+    .score-item {
+      margin-bottom: 10px;
+    }
+
+    .summary {
+      margin-top: 30px;
+      font-size: 16px;
+      color: #ddd;
+      text-align: left;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #1e1e1e;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 255, 174, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <h1>Evaluation Result</h1>
+  <div class="result-container">
+    <!-- Consolidated Score Gauge -->
+    <div class="consolidated">
+      <svg class="gauge" viewBox="0 0 100 50">
+        <path class="bg-arc" d="M10,50 A40,40 0 0,1 90,50" />
+        <path class="fg-arc" id="progressArc" d="" />
+        <circle id="knob" cx="0" cy="0" r="2.5" fill="#00ffae" />
+      </svg>
+      <div class="gauge-label">
+        <div id="gaugeScore" class="gauge-score">--%</div>
+        <div id="gaugeText" class="gauge-text">--</div>
+      </div>
+    </div>
+
+    <!-- Individual Scores -->
+    <div class="scores">
+      <div class="score-item"><strong>Resume Score:</strong> <span id="resumeScore">--</span>%</div>
+      <div class="score-item"><strong>Skill Set Score:</strong> <span id="skillScore">--</span>%</div>
+      <div class="score-item"><strong>Job Selection Score:</strong> <span id="jobScore">--</span>%</div>
+      <div class="score-item"><strong>Simulation Test Score:</strong> <span id="simulationScore">--</span>%</div>
+    </div>
+
+    <!-- Summary -->
+    <div class="summary">
+      <p><strong>Model Summary:</strong></p>
+      <p id="summaryText">Loading summary...</p>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve scores from localStorage
+    const resumeScore = parseFloat(localStorage.getItem("resumeScore")) || 0;
+    const skillScore = parseFloat(localStorage.getItem("skillScore")) || 0;
+    const jobScore = parseFloat(localStorage.getItem("jobScore")) || 0;
+    const simulationScore = parseFloat(localStorage.getItem("simulationScore")) || 0;
+    const totalScore = (resumeScore + skillScore + jobScore + simulationScore) / 4;
+
+    // Update individual scores
+    document.getElementById("resumeScore").textContent = resumeScore.toFixed(1);
+    document.getElementById("skillScore").textContent = skillScore.toFixed(1);
+    document.getElementById("jobScore").textContent = jobScore.toFixed(1);
+    document.getElementById("simulationScore").textContent = simulationScore.toFixed(1);
+
+    // Update summary
+    const summaryText = localStorage.getItem("summary") || "No summary available.";
+    document.getElementById("summaryText").textContent = summaryText;
+
+    // Gauge drawing helpers
+    function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
+      const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+      return {
+        x: centerX + radius * Math.cos(angleInRadians),
+        y: centerY + radius * Math.sin(angleInRadians)
+      };
+    }
+
+    function describeArc(x, y, radius, startAngle, endAngle) {
+      const start = polarToCartesian(x, y, radius, endAngle);
+      const end = polarToCartesian(x, y, radius, startAngle);
+      const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+
+      return [
+        "M", start.x, start.y,
+        "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
+      ].join(" ");
+    }
+
+    function updateGauge(percent) {
+      const endAngle = 180 * (percent / 100);
+      const arcPath = describeArc(50, 50, 40, 0, endAngle);
+      document.getElementById("progressArc").setAttribute("d", arcPath);
+
+      const knobPos = polarToCartesian(50, 50, 40, endAngle);
+      document.getElementById("knob").setAttribute("cx", knobPos.x);
+      document.getElementById("knob").setAttribute("cy", knobPos.y);
+
+      document.getElementById("gaugeScore").textContent = percent.toFixed(0) + "%";
+
+      let label = "Needs Improvement";
+      if (percent >= 90) label = "Excellent";
+      else if (percent >= 75) label = "Good";
+      else if (percent >= 60) label = "Average";
+      document.getElementById("gaugeText").textContent = label;
+    }
+
+    updateGauge(totalScore);
+  </script>
+</body>
+</html>
